@@ -19,7 +19,7 @@ class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
 	GENERATED_BODY()
 private:
 	UPROPERTY(meta = (BindWidget)) /* To automaticly find the corresponding button with the same name*/
-	UButton* HostButton;
+		UButton* HostButton;
 	UPROPERTY(meta = (BindWidget))
 	UButton* JoinButton;
 
@@ -28,13 +28,21 @@ private:
 	UFUNCTION()
 	void JoinButtonClicked();
 
+
+	void MenuTearDown();
+
 	/* Online Subsystem */
 	UMultiplayerSessionsSubsystem* MultiplayerSessionSubsystem;
 
+
+	int32 NumPublicConnections{ 4 };
+	FString MatchType{ TEXT("FreeForAll") };
+
 protected:
 	virtual bool Initialize() override;
+	virtual void NativeDestruct() override;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void MenuSetup();
+	void MenuSetup(int32 playerLimit = 4, FString MatchType = TEXT("FreeForAll"));
 };

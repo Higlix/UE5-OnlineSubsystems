@@ -19,7 +19,14 @@ void UMenu::HostButtonClicked()
 
 	if (MultiplayerSessionSubsystem)
 	{
-		MultiplayerSessionSubsystem->CreateSession(4, FString("FreeForAll"));
+		MultiplayerSessionSubsystem->CreateSession(NumPublicConnections, MatchType);
+	}
+
+	UWorld* World = GetWorld();
+
+	if (World)
+	{
+		World->ServerTravel(FString("/Game/ThirdPerson/Maps/LobbyMap?listen"));
 	}
 }
 
@@ -37,6 +44,23 @@ void UMenu::JoinButtonClicked()
 
 
 
+}
+
+void UMenu::MenuTearDown()
+{
+	RemoveFromParent();
+	UWorld* World = GetWorld();
+
+	if (World)
+	{
+		APlayerController* playerController = World->GetFirstPlayerController();
+		if (playerController)
+		{
+			FInputModeGameOnly InputModeData;
+			playerController->SetInputMode(InputModeData);
+			playerController->SetShowMouseCursor(false);
+		}
+	}
 }
 
 bool UMenu::Initialize()
@@ -58,8 +82,17 @@ bool UMenu::Initialize()
 	return (true);
 }
 
-void UMenu::MenuSetup()
+void UMenu::NativeDestruct()
 {
+	MenuTearDown();
+
+	Super::NativeDestruct();
+}
+
+void UMenu::MenuSetup(int32 playerLimit, FString TypeOfMatch)
+{
+	NumPublicConnections = playerLimit;
+	MatchType = TypeOfMatch;
 	AddToViewport();
 	SetVisibility(ESlateVisibility::Visible);
 	bIsFocusable = true;
