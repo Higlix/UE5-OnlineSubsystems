@@ -23,7 +23,7 @@ private:
 
 	/*
 		To add to the Online Session Interface delegate list.
-		We will bind our MultiplayerSessionsSubsystem internal callbacks to these.
+		We will bind our MultiplayerSessionsSubsystem internal callbacks to these....
 	*/
 
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
