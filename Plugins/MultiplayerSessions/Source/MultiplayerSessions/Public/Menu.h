@@ -42,6 +42,12 @@ protected:
 	virtual bool Initialize() override;
 	virtual void NativeDestruct() override;
 
+	/*
+		Callbacks for the custom delegates on the MultiplayerSS
+	*/
+	UFUNCTION()
+	void OnCreateSession(bool bWasSuccessful);
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void MenuSetup(int32 playerLimit = 4, FString MatchType = TEXT("FreeForAll"));

@@ -8,6 +8,9 @@
 
 #include "MultiplayerSessionsSubsystem.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete, bool, bWasSuccessful);
+
 /**
  * 
  */
@@ -68,5 +71,11 @@ public:
 	void DestroySession();
 	void StartSession();
 
+
+	/*
+		Our on custom delegates 
+	*/
+
+	FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete;
 
 };
