@@ -11,6 +11,7 @@
  */
 
 class UButton;
+class UMultiplayerSessionsSubsystem;
 
 UCLASS()
 class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
@@ -26,6 +27,9 @@ private:
 	void HostButtonClicked();
 	UFUNCTION()
 	void JoinButtonClicked();
+
+	/* Online Subsystem */
+	UMultiplayerSessionsSubsystem* MultiplayerSessionSubsystem;
 
 protected:
 	virtual bool Initialize() override;
