@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Components/Button.h"
 #include "MultiplayerSessionsSubsystem.h"
+#include "OnlineSessionSettings.h"
 
 void UMenu::HostButtonClicked()
 {
@@ -24,9 +25,6 @@ void UMenu::JoinButtonClicked()
 			FString(TEXT("Join Button Pressed"))
 		);
 	}
-
-
-
 }
 
 void UMenu::MenuTearDown()
@@ -105,7 +103,22 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 			);
 		}
 	}
+}
 
+void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionsResults, bool bWasSuccessful)
+{
+}
+
+void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
+{
+}
+
+void UMenu::OnDestroySession(bool bWasSuccesful)
+{
+}
+
+void UMenu::OnStartSession(bool bWasSuccesful)
+{
 }
 
 void UMenu::MenuSetup(int32 playerLimit, FString TypeOfMatch)
@@ -139,5 +152,9 @@ void UMenu::MenuSetup(int32 playerLimit, FString TypeOfMatch)
 	if (MultiplayerSessionSubsystem)
 	{
 		MultiplayerSessionSubsystem->MultiplayerOnCreateSessionComplete.AddDynamic(this, &ThisClass::OnCreateSession);
+		MultiplayerSessionSubsystem->MultiplayerOnFindSessionsComplete.AddUObject(this, &ThisClass::OnFindSessions);
+		MultiplayerSessionSubsystem->MultiplayerOnJoinSessionComplete.AddUObject(this, &ThisClass::OnJoinSession);
+		MultiplayerSessionSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this, &ThisClass::OnDestroySession);
+		MultiplayerSessionSubsystem->MultiplayerOnStartSessionComplete.AddDynamic(this, &ThisClass::OnStartSession);
 	}
 }
