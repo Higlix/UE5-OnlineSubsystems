@@ -22,7 +22,7 @@ class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
 	GENERATED_BODY()
 private:
 	UPROPERTY(meta = (BindWidget)) /* To automaticly find the corresponding button with the same name*/
-		UButton* HostButton;
+	UButton* HostButton;
 	UPROPERTY(meta = (BindWidget))
 	UButton* JoinButton;
 
