@@ -147,7 +147,10 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 playerLimit, FString mat
 	LastSessionSettings->bAllowJoinViaPresence = true;
 	LastSessionSettings->bShouldAdvertise= true;
 	LastSessionSettings->bUsesPresence = true;
+	LastSessionSettings->bUseLobbiesIfAvailable = true;
 	LastSessionSettings->Set(FName("MatchType"), FString("FreeForAll"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+	LastSessionSettings->BuildUniqueId = 1;
+
 
 	UWorld* World = GetWorld();
 	if (!World)
